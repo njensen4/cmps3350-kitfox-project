@@ -14,3 +14,6 @@ Don't hate me, but I don't really like conchas. Favorite bakery would probably j
 
 ## Preferred communication style
 For me the easiest way to communicate would be through discord, easily accessable and I have it on all my devices.
+
+## Availability
+My availability can vary from week to week, but for the most part I will always be available after 7pm.
