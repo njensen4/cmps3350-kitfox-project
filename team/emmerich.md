@@ -15,3 +15,5 @@ My favorite Conchas are the one's my mother bakes <3 Although I have to agree wi
 ## Preferred Communication Style
 I prefer discord communication, however, email and other informal ways of communication work as well (Phone number, social media, etc...)
 
+## Availability
+I am available at any hour of the day with one days notice. Most confidently I will always be available in the evenings. 
