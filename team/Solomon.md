@@ -32,5 +32,11 @@ Discord works just fine (Phone number or socials to name a few)
 
 
 
+\##Availability
+
+Mostly after 7pm on weekdays and after 11:30am on weekends
+
+
+
 EOF
 
