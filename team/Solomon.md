@@ -1,42 +1,20 @@
-\# Solomon
+# Solomon
 
-
-
-\## Role
-
+## Role
 Developer
 
+## One technical strength
+I quite excel in picking up new languages, especially old low-level languages and looking at the finer details.
 
+## One area for growth
+I need to stop doing all my work last minute.
 
-\## One technical strength
+## Pastries
+I don't really eat pastries, so I don't have a spot to recommend.
 
-I quite excel in picking up new languages, especially old low-level languages and looking at the finer details
+## Preferred communication style
+Discord works just fine (phone number or socials to name a few).
 
-
-
-\## One area for growth
-
-I need to stop doing all my work last minute
-
-
-
-\## Pastries
-
-I don't like conchas. I barely eat pastries so I can't give you a spot
-
-
-
-\##Preferred communication style
-
-Discord works just fine (Phone number or socials to name a few)
-
-
-
-\##Availability
-
-Mostly after 7pm on weekdays and after 11:30am on weekends
-
-
-
-EOF
+## Availability
+Mostly after 7pm on weekdays and after 11:30am on weekends.
 
