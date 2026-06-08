@@ -26,5 +26,11 @@ I don't like conchas. I barely eat pastries so I can't give you a spot
 
 
 
+\##Preferred communication style
+
+Discord works just fine (Phone number or socials to name a few)
+
+
+
 EOF
 
