@@ -9,7 +9,6 @@ function Sightings() {
     <section>
       <h2>Sightings</h2>
       <p>This page uses placeholder data. A later milestone will connect this view to real stored records.</p>
-
       <ul>
         {exampleSightings.map((sighting) => (
           <li key={sighting.id}>
