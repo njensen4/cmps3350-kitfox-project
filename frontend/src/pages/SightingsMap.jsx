@@ -80,7 +80,7 @@ function SightingsMap() {
   }
 
   return (
-    <section>
+    <section style={{ maxWidth: 'var(--content-width, 1180px)', margin: '0 auto', padding: '24px' }}>
       <h2>Sightings</h2>
       <p>Click a sighting to see where it happened on the map.</p>
 
