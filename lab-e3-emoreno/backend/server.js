@@ -24,6 +24,23 @@ app.get("/health", (req, res) => {
   });
 });
 
+app.get("/about", (req, res) => {
+  res.json({
+    app: "Kit Fox Finder",
+    backend: "Node.js, Express, and MySQL",
+    purpose: "This API provides CRUD access to kit fox sighting records.",
+    publicApiUrl: process.env.PUBLIC_API_URL || "Not configured"
+  });
+});
+
+app.get("/version", (req, res) => {
+  res.json({
+    lab: "Lab E1 / Lab E3",
+    version: "1.0.0",
+    database: "connected with MySQL"
+  });
+});
+
 app.get("/db-test", async (req, res) => {
   try {
     const [rows] = await pool.query("SELECT 1 AS database_connection_test");
