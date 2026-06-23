@@ -24,6 +24,23 @@ app.get("/health", (req, res) => {
   });
 });
 
+app.get("/about", (req, res) => {
+  res.json({
+    app: "Kit Fox Tracker",
+    backend: "MySQL, Node.js, and Express",
+    purpose: "This API will later provide CRUD access to sighting records.",
+    publicApiUrl: process.env.PUBLIC_API_URL || "Not configured"
+  });
+});
+
+app.get("/version", (req, res) => {
+  res.json({
+    lab: "Lab E1 / Lab E3",
+    version: "1.0.0",
+    database: "not connected yet"
+  });
+});
+
 app.get("/db-test", async (req, res) => {
   try {
     const [rows] = await pool.query("SELECT 1 AS database_connection_test");
