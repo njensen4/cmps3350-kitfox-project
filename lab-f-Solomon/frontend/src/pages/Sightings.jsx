@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { API_BASE_URL } from '../api.js'
+import { API_BASE_URL } from '../api.jsx'
 
 function Sightings() {
   const [sightings, setSightings] = useState([])

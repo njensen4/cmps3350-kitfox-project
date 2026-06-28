@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { API_BASE_URL } from '../api.js'
+import { API_BASE_URL } from '../api.jsx'
 
 function SubmitSighting() {
   const [observerName, setObserverName] = useState('')
