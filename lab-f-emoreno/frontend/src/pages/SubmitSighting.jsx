@@ -1,10 +1,14 @@
 import { useState } from 'react'
 import { API_BASE_URL } from '../api.js'
 
+const initialFormData = {
+  observerName: '',
+  sightingDate: '',
+  locationName: ''
+}
+
 function SubmitSighting() {
-  const [observerName, setObserverName] = useState('')
-  const [sightingDate, setSightingDate] = useState('')
-  const [locationName, setLocationName] = useState('')
+  const [formData, setFormData] = useState(initialFormData)
   const [successMessage, setSuccessMessage] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
   const [submitting, setSubmitting] = useState(false)
@@ -17,9 +21,9 @@ function SubmitSighting() {
     setSubmitting(true)
 
     const newSighting = {
-      observer_name: observerName,
-      sighting_date: sightingDate,
-      location_name: locationName
+      observer_name: formData.observerName,
+      sighting_date: formData.sightingDate,
+      location_name: formData.locationName
     }
 
     try {
@@ -38,9 +42,7 @@ function SubmitSighting() {
       const result = await response.json()
 
       setSuccessMessage(`Sighting created with ID ${result.id}. Check the Sightings page to see the new record.`)
-      setObserverName('')
-      setSightingDate('')
-      setLocationName('')
+      setFormData(initialFormData)
     } catch (err) {
       console.error(err)
       setErrorMessage('Could not create the sighting. Check your API URL and backend.')
