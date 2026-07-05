@@ -7,13 +7,21 @@ const initialFormData = {
   locationName: ''
 }
 
-function handleChange(event) {
-  const { name, value } = event.target
 
-  setFormData({
-    ...formData,
-    [name]: value
+async function createSighting(newSighting) {
+  const response = await fetch(`${API_BASE_URL}/sightings`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(newSighting)
   })
+
+  if (!response.ok) {
+    throw new Error(`API request failed with status ${response.status}`)
+  }
+
+  return response.json()
 }
 
 function SubmitSighting() {
@@ -21,6 +29,15 @@ function SubmitSighting() {
   const [successMessage, setSuccessMessage] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
   const [submitting, setSubmitting] = useState(false)
+  
+  function handleChange(event) {
+    const { name, value } = event.target
+
+    setFormData({
+      ...formData,
+      [name]: value
+    })
+  }
 
   async function handleSubmit(event) {
     event.preventDefault()
@@ -36,19 +53,7 @@ function SubmitSighting() {
     }
 
     try {
-      const response = await fetch(`${API_BASE_URL}/sightings`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(newSighting)
-      })
-
-      if (!response.ok) {
-        throw new Error(`API request failed with status ${response.status}`)
-      }
-
-      const result = await response.json()
+      const result = await createSighting(newSighting)
 
       setSuccessMessage(`Sighting created with ID ${result.id}. Check the Sightings page to see the new record.`)
       setFormData(initialFormData)
