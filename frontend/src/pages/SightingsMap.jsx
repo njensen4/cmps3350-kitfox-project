@@ -58,6 +58,16 @@ const SIGHTINGS = [
   },
 ]
 
+function SightingSummary({sighting}){
+ return (
+     <>
+	<strong>{sighting.location}</strong>
+	<div className="s-date">{sighting.date}</div>
+	<span className="s-tag">Condition: {sighting.condition}</span>
+     </>
+  )
+}
+
 function SightingsMap() {
   const [activeId, setActiveId] = useState(null)
   const mapRef = useRef(null)          // the Leaflet map instance
@@ -97,9 +107,7 @@ function SightingsMap() {
               }
               onClick={() => focusSighting(s)}
             >
-              <strong>{s.location}</strong>
-              <div className="s-date">{s.date}</div>
-              <span className="s-tag">Condition: {s.condition}</span>
+              <SightingSummary sighting={s} />
             </li>
           ))}
         </ul>
@@ -132,11 +140,7 @@ function SightingsMap() {
                 eventHandlers={{ click: () => setActiveId(s.id) }}
               >
                 <Popup>
-                  <strong>{s.location}</strong>
-                  <br />
-                  {s.date}
-                  <br />
-                  Condition: {s.condition}
+                  <SightingSummary sighting={s} />
                 </Popup>
               </Marker>
             ))}
