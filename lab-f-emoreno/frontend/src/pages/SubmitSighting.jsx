@@ -7,6 +7,15 @@ const initialFormData = {
   locationName: ''
 }
 
+function handleChange(event) {
+  const { name, value } = event.target
+
+  setFormData({
+    ...formData,
+    [name]: value
+  })
+}
+
 function SubmitSighting() {
   const [formData, setFormData] = useState(initialFormData)
   const [successMessage, setSuccessMessage] = useState('')
@@ -64,8 +73,9 @@ function SubmitSighting() {
           Observer name
           <input
             type="text"
-            value={observerName}
-            onChange={(event) => setObserverName(event.target.value)}
+            name="observerName"
+            value={formData.observerName}
+            onChange={handleChange}
             required
           />
         </label>
@@ -74,8 +84,9 @@ function SubmitSighting() {
           Sighting date
           <input
             type="date"
-            value={sightingDate}
-            onChange={(event) => setSightingDate(event.target.value)}
+            name="sightingDate"
+            value={formData.sightingDate}
+            onChange={handleChange}
             required
           />
         </label>
@@ -84,8 +95,9 @@ function SubmitSighting() {
           Location name
           <input
             type="text"
-            value={locationName}
-            onChange={(event) => setLocationName(event.target.value)}
+            name="locationName"
+            value={formData.locationName}
+            onChange={handleChange}
             placeholder="Example: CSUB campus"
             required
           />
