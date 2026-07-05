@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { API_BASE_URL } from '../api.js'
+import { getSightings } from '../api.js'
 
 function Sightings() {
   const [sightings, setSightings] = useState([])
@@ -9,13 +9,7 @@ function Sightings() {
   useEffect(() => {
     async function loadSightings() {
       try {
-        const response = await fetch(`${API_BASE_URL}/sightings`)
-
-        if (!response.ok) {
-          throw new Error(`API request failed with status ${response.status}`)
-        }
-
-        const data = await response.json()
+        const data = await getSightings()
         setSightings(data)
       } catch (err) {
         console.error(err)
