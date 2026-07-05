@@ -5,15 +5,15 @@ function SubmitSighting() {
   const [observerName, setObserverName] = useState('')
   const [sightingDate, setSightingDate] = useState('')
   const [locationName, setLocationName] = useState('')
-  const [message, setMessage] = useState('')
-  const [error, setError] = useState('')
+  const [successMessage, setSuccessMessage] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
   const [submitting, setSubmitting] = useState(false)
 
   async function handleSubmit(event) {
     event.preventDefault()
 
-    setMessage('')
-    setError('')
+    setSuccessMessage('')
+    setErrorMessage('')
     setSubmitting(true)
 
     const newSighting = {
@@ -37,13 +37,13 @@ function SubmitSighting() {
 
       const result = await response.json()
 
-      setMessage(`Sighting created with ID ${result.id}. Check the Sightings page to see the new record.`)
+      setSuccessMessage(`Sighting created with ID ${result.id}. Check the Sightings page to see the new record.`)
       setObserverName('')
       setSightingDate('')
       setLocationName('')
     } catch (err) {
       console.error(err)
-      setError('Could not create the sighting. Check your API URL and backend.')
+      setErrorMessage('Could not create the sighting. Check your API URL and backend.')
     } finally {
       setSubmitting(false)
     }
@@ -94,8 +94,8 @@ function SubmitSighting() {
         </button>
       </form>
 
-      {message && <p>{message}</p>}
-      {error && <p>{error}</p>}
+      {successMessage && <p>{successMessage}</p>}
+      {errorMessage && <p>{errorMessage}</p>}
     </section>
   )
 }
