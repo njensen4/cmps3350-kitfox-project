@@ -18,21 +18,45 @@ function formatDate(value) {
 }
 
 function getSightingTitle(sighting) {
-  return sighting.title || sighting.location || "Kit fox sighting";
+  return (
+    sighting.location_name ||
+    sighting.location ||
+    sighting.title ||
+    "Kit fox sighting"
+  );
 }
 
 function getSightingLocation(sighting) {
-  return sighting.location || sighting.location_description || "Location not provided";
+  return (
+    sighting.location_name ||
+    sighting.location ||
+    sighting.location_description ||
+    "Location not provided"
+  );
+}
+
+function getSightingDate(sighting) {
+  return (
+    sighting.sighting_date ||
+    sighting.date ||
+    sighting.created_at ||
+    sighting.createdAt
+  );
 }
 
 function getSightingNotes(sighting) {
-  return sighting.notes || sighting.description || "No notes were added for this sighting.";
+  return (
+    sighting.notes ||
+    sighting.description ||
+    "No notes were added for this sighting."
+  );
 }
 
 export default function Sightings() {
   const [sightings, setSightings] = useState([]);
   const [status, setStatus] = useState("loading");
   const [errorMessage, setErrorMessage] = useState("");
+  const campusMap = `${import.meta.env.BASE_URL}images/placeholders/campus-map.jpg`;
 
   useEffect(() => {
     async function loadSightings() {
@@ -102,10 +126,11 @@ export default function Sightings() {
                 <p>
                   <strong>Location:</strong> {getSightingLocation(sighting)}
                 </p>
+
                 <p>
-                  <strong>Date:</strong>{" "}
-                  {formatDate(sighting.date || sighting.sighting_date || sighting.created_at)}
+                  <strong>Date:</strong> {formatDate(getSightingDate(sighting))}
                 </p>
+
                 {sighting.time && (
                   <p>
                     <strong>Time:</strong> {sighting.time}
@@ -118,6 +143,22 @@ export default function Sightings() {
           ))}
         </section>
       )}
+
+      <section className="sightings-map-preview">
+        <div className="sightings-map-preview-text">
+          <p className="eyebrow">Campus Map</p>
+          <h2>CSUB Sighting Area</h2>
+          <p>
+            This map is included as a campus reference for the MVP. Sightings are
+            currently shown as database-backed cards above. Map markers are a
+            planned future improvement.
+          </p>
+        </div>
+
+        <div className="sightings-map-card">
+          <img src={campusMap} alt="CSUB campus map preview" />
+        </div>
+      </section>
     </main>
   );
 }

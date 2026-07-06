@@ -21,3 +21,59 @@
   border-color: #f0c7bd;
   color: #8b2f20;
 }
+
+.sightings-map-preview {
+  display: grid;
+  grid-template-columns: minmax(0, 0.75fr) minmax(320px, 1.25fr);
+  gap: 28px;
+  align-items: center;
+  margin-top: 48px;
+  padding-top: 36px;
+  border-top: 1px solid var(--color-border);
+}
+
+.sightings-map-preview .eyebrow {
+  margin: 0 0 8px;
+  color: var(--color-primary);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+}
+
+.sightings-map-preview-text h2 {
+  margin: 0 0 12px;
+  color: var(--color-heading);
+  font-size: 1.8rem;
+}
+
+.sightings-map-preview-text p {
+  margin: 0;
+  color: var(--color-muted);
+  line-height: 1.6;
+}
+
+.sightings-map-card {
+  height: 340px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-small);
+}
+
+.sightings-map-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 800px) {
+  .sightings-map-preview {
+    grid-template-columns: 1fr;
+  }
+
+  .sightings-map-card {
+    height: 260px;
+  }
+}
