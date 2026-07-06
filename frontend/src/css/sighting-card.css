@@ -1,10 +1,69 @@
-.sightings-grid {
+.recent-sighting-card {
+  display: block;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  background-color: var(--color-surface);
+  color: inherit;
+  text-decoration: none;
+  box-shadow: var(--shadow-small);
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    border-color 160ms ease;
+}
+
+.recent-sighting-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-medium);
+}
+
+.recent-sighting-image {
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  background-color: var(--color-border);
+}
+
+.recent-sighting-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.recent-sighting-content {
+  padding: 18px;
+}
+
+.recent-sighting-content h3 {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+}
+
+.recent-sighting-date {
+  margin: 0 0 10px;
+  color: var(--color-muted);
+  font-size: 0.95rem;
+}
+
+.recent-sighting-condition {
+  display: inline-flex;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background-color: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.sightings-page .sightings-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
 }
 
-.sighting-card {
+.sightings-page .sighting-card {
   background: #ffffff;
   border: 1px solid #dfe8dc;
   border-radius: 20px;
@@ -12,7 +71,7 @@
   box-shadow: 0 14px 32px rgba(31, 42, 36, 0.08);
 }
 
-.sighting-card-header {
+.sightings-page .sighting-card-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -20,47 +79,57 @@
   margin-bottom: 18px;
 }
 
-.sighting-label {
+.sightings-page .sighting-label {
   margin: 0 0 6px;
-  color: var(--color-primary, #3a7d44);
+  color: var(--color-primary);
   font-size: 0.78rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
 
-.sighting-card h2 {
+.sightings-page .sighting-card h2 {
   margin: 0;
   font-size: 1.3rem;
-  color: var(--color-text, #1f2a24);
+  color: var(--color-heading);
 }
 
-.sighting-status {
+.sightings-page .sighting-status {
   flex: 0 0 auto;
   padding: 6px 10px;
   border-radius: 999px;
-  background: #eaf4e5;
-  color: #2d6a36;
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
   font-size: 0.8rem;
   font-weight: 700;
 }
 
-.sighting-details {
+.sightings-page .sighting-details {
   display: grid;
   gap: 8px;
   margin-bottom: 16px;
 }
 
-.sighting-details p {
+.sightings-page .sighting-details p {
   margin: 0;
-  color: #34433a;
+  color: var(--color-text);
   line-height: 1.5;
 }
 
-.sighting-notes {
+.sightings-page .sighting-notes {
   margin: 0;
   padding-top: 16px;
-  border-top: 1px solid #edf2ea;
-  color: #5f6f66;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-muted);
   line-height: 1.6;
+}
+
+@media (max-width: 640px) {
+  .recent-sighting-image {
+    height: 180px;
+  }
+
+  .sightings-page .sighting-card-header {
+    flex-direction: column;
+  }
 }
