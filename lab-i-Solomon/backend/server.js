@@ -3,12 +3,14 @@ import dotenv from "dotenv";
 import { pool } from "./db.js";
 import cors from "cors"
 import morgan from "morgan"
+import helmet from "helmet"
 
 dotenv.config();
 
 const app = express();
 
 app.use(cors());
+app.use(helmet());
 app.use(morgan("combined"));
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || "127.0.0.1";
