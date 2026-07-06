@@ -1,7 +1,18 @@
 import { useEffect, useState } from "react";
+import { MapContainer, TileLayer } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+
 import { getSightings } from "../api";
 import "../css/sightings.css";
 import "../css/sighting-card.css";
+
+const CSUB_CENTER = [35.3496, -119.1037];
+
+const CSUB_BOUNDS = [
+  [35.3445, -119.1105],
+  [35.355, -119.0975],
+];
+
 
 function formatDate(value) {
   if (!value) {
@@ -143,22 +154,6 @@ export default function Sightings() {
           ))}
         </section>
       )}
-
-      <section className="sightings-map-preview">
-        <div className="sightings-map-preview-text">
-          <p className="eyebrow">Campus Map</p>
-          <h2>CSUB Sighting Area</h2>
-          <p>
-            This map is included as a campus reference for the MVP. Sightings are
-            currently shown as database-backed cards above. Map markers are a
-            planned future improvement.
-          </p>
-        </div>
-
-        <div className="sightings-map-card">
-          <img src={campusMap} alt="CSUB campus map preview" />
-        </div>
-      </section>
     </main>
   );
 }
