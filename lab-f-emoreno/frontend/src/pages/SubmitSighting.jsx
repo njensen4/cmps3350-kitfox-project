@@ -1,49 +1,65 @@
 import { useState } from 'react'
 import { API_BASE_URL } from '../api.js'
 
+const initialFormData = {
+  observerName: '',
+  sightingDate: '',
+  locationName: ''
+}
+
+
+async function createSighting(newSighting) {
+  const response = await fetch(`${API_BASE_URL}/sightings`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(newSighting)
+  })
+
+  if (!response.ok) {
+    throw new Error(`API request failed with status ${response.status}`)
+  }
+
+  return response.json()
+}
+
 function SubmitSighting() {
-  const [observerName, setObserverName] = useState('')
-  const [sightingDate, setSightingDate] = useState('')
-  const [locationName, setLocationName] = useState('')
-  const [message, setMessage] = useState('')
-  const [error, setError] = useState('')
+  const [formData, setFormData] = useState(initialFormData)
+  const [successMessage, setSuccessMessage] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
   const [submitting, setSubmitting] = useState(false)
+  
+  function handleChange(event) {
+    const { name, value } = event.target
+
+    setFormData({
+      ...formData,
+      [name]: value
+    })
+  }
 
   async function handleSubmit(event) {
     event.preventDefault()
 
-    setMessage('')
-    setError('')
+    setSuccessMessage('')
+    setErrorMessage('')
     setSubmitting(true)
 
     const newSighting = {
-      observer_name: observerName,
-      sighting_date: sightingDate,
-      location_name: locationName
+      observer_name: formData.observerName,
+      sighting_date: formData.sightingDate,
+      location_name: formData.locationName
     }
 
     try {
-      const response = await fetch(`${API_BASE_URL}/sightings`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(newSighting)
-      })
+      const result = await createSighting(newSighting)
 
-      if (!response.ok) {
-        throw new Error(`API request failed with status ${response.status}`)
-      }
-
-      const result = await response.json()
-
-      setMessage(`Sighting created with ID ${result.id}. Check the Sightings page to see the new record.`)
-      setObserverName('')
-      setSightingDate('')
-      setLocationName('')
+      setSuccessMessage(`Sighting created with ID ${result.id}. Check the Sightings page to see the new record.`)
+      setFormData(initialFormData)
     } catch (err) {
       console.error(err)
-      setError('Could not create the sighting. Check your API URL and backend.')
+      setErrorMessage('Could not create the sighting. Check your API URL and backend.')
     } finally {
       setSubmitting(false)
     }
@@ -62,8 +78,9 @@ function SubmitSighting() {
           Observer name
           <input
             type="text"
-            value={observerName}
-            onChange={(event) => setObserverName(event.target.value)}
+            name="observerName"
+            value={formData.observerName}
+            onChange={handleChange}
             required
           />
         </label>
@@ -72,8 +89,9 @@ function SubmitSighting() {
           Sighting date
           <input
             type="date"
-            value={sightingDate}
-            onChange={(event) => setSightingDate(event.target.value)}
+            name="sightingDate"
+            value={formData.sightingDate}
+            onChange={handleChange}
             required
           />
         </label>
@@ -82,8 +100,9 @@ function SubmitSighting() {
           Location name
           <input
             type="text"
-            value={locationName}
-            onChange={(event) => setLocationName(event.target.value)}
+            name="locationName"
+            value={formData.locationName}
+            onChange={handleChange}
             placeholder="Example: CSUB campus"
             required
           />
@@ -94,8 +113,8 @@ function SubmitSighting() {
         </button>
       </form>
 
-      {message && <p>{message}</p>}
-      {error && <p>{error}</p>}
+      {successMessage && <p>{successMessage}</p>}
+      {errorMessage && <p>{errorMessage}</p>}
     </section>
   )
 }
