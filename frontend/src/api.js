@@ -1,25 +1,27 @@
-export const API_BASE_URL = "https://bender.cs.csubak.edu/moreno";
+const API_BASE_URL = "https://bender.cs.csubak.edu/moreno";
 
-async function requestJson(path, options = {}) {
-  const response = await fetch(`${API_BASE_URL}${path}`, options);
+export async function getSightings() {
+  const response = await fetch(`${API_BASE_URL}/sightings`);
 
   if (!response.ok) {
-    throw new Error(`API request failed with status ${response.status}`);
+    throw new Error("Failed to load sightings");
   }
 
   return response.json();
 }
 
-export function getSightings() {
-  return requestJson('/sightings');
-}
-
-export function createSighting(sighting) {
-  return requestJson('/sightings', {
-    method: 'POST',
+export async function createSighting(sighting) {
+  const response = await fetch(`${API_BASE_URL}/sightings`, {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json"
     },
     body: JSON.stringify(sighting)
   });
+
+  if (!response.ok) {
+    throw new Error("Failed to create sighting");
+  }
+
+  return response.json();
 }

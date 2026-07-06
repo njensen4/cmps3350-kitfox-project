@@ -1,71 +1,123 @@
-import { useEffect, useState } from 'react'
-import { getSightings } from '../api.js'
+import { useEffect, useState } from "react";
+import { getSightings } from "../api";
+import "../css/sightings.css";
+import "../css/sighting-card.css";
 
-function Sightings() {
-  const [sightings, setSightings] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState('')
+function formatDate(value) {
+  if (!value) {
+    return "Date not provided";
+  }
+
+  const date = new Date(value);
+
+  if (Number.isNaN(date.getTime())) {
+    return value;
+  }
+
+  return date.toLocaleDateString();
+}
+
+function getSightingTitle(sighting) {
+  return sighting.title || sighting.location || "Kit fox sighting";
+}
+
+function getSightingLocation(sighting) {
+  return sighting.location || sighting.location_description || "Location not provided";
+}
+
+function getSightingNotes(sighting) {
+  return sighting.notes || sighting.description || "No notes were added for this sighting.";
+}
+
+export default function Sightings() {
+  const [sightings, setSightings] = useState([]);
+  const [status, setStatus] = useState("loading");
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     async function loadSightings() {
       try {
-        const data = await getSightings()
-        setSightings(data)
-      } catch (err) {
-        console.error(err)
-        setError('Could not load sightings from the API.')
-      } finally {
-        setLoading(false)
+        const data = await getSightings();
+
+        if (Array.isArray(data)) {
+          setSightings(data);
+        } else if (Array.isArray(data.sightings)) {
+          setSightings(data.sightings);
+        } else {
+          setSightings([]);
+        }
+
+        setStatus("success");
+      } catch (error) {
+        console.error("Error loading sightings:", error);
+        setErrorMessage("Sightings could not be loaded right now.");
+        setStatus("error");
       }
     }
 
-    loadSightings()
-  }, [])
-
-  if (loading) {
-    return (
-      <section>
-        <h2>Sightings</h2>
-        <p>Loading sightings...</p>
-      </section>
-    )
-  }
-
-  if (error) {
-    return (
-      <section>
-        <h2>Sightings</h2>
-        <p>{error}</p>
-        <p>Check that your Lab E3 backend is running and that your API URL is correct.</p>
-      </section>
-    )
-  }
+    loadSightings();
+  }, []);
 
   return (
-    <section>
-      <h2>Sightings</h2>
+    <main className="sightings-page">
+      <section className="sightings-hero">
+        <p className="eyebrow">Recent Reports</p>
+        <h1>Kit Fox Sightings</h1>
+        <p>
+          View recent kit fox reports submitted through the tracker. Each card
+          shows the location, date, and notes stored for a sighting.
+        </p>
+      </section>
 
-      <p>
-        These records are loaded from the Express/MySQL API.
-      </p>
-
-      {sightings.length === 0 ? (
-        <p>No sightings were found.</p>
-      ) : (
-        <ul>
-          {sightings.map((sighting) => (
-            <li key={sighting.id}>
-              <strong>{sighting.location_name}</strong>
-              {' - '}
-              {sighting.observer_name}
-              {' - '}
-              {sighting.sighting_date}
-            </li>
-          ))}
-        </ul>
+      {status === "loading" && (
+        <p className="sightings-message">Loading sightings...</p>
       )}
-    </section>
-  )
-}
 
-export default Sightings
+      {status === "error" && (
+        <p className="sightings-message sightings-error">{errorMessage}</p>
+      )}
+
+      {status === "success" && sightings.length === 0 && (
+        <p className="sightings-message">
+          No sightings have been submitted yet.
+        </p>
+      )}
+
+      {status === "success" && sightings.length > 0 && (
+        <section className="sightings-grid" aria-label="Submitted sightings">
+          {sightings.map((sighting) => (
+            <article className="sighting-card" key={sighting.id}>
+              <div className="sighting-card-header">
+                <div>
+                  <p className="sighting-label">Sighting #{sighting.id}</p>
+                  <h2>{getSightingTitle(sighting)}</h2>
+                </div>
+
+                <span className="sighting-status">
+                  {sighting.status || "Submitted"}
+                </span>
+              </div>
+
+              <div className="sighting-details">
+                <p>
+                  <strong>Location:</strong> {getSightingLocation(sighting)}
+                </p>
+                <p>
+                  <strong>Date:</strong>{" "}
+                  {formatDate(sighting.date || sighting.sighting_date || sighting.created_at)}
+                </p>
+                {sighting.time && (
+                  <p>
+                    <strong>Time:</strong> {sighting.time}
+                  </p>
+                )}
+              </div>
+
+              <p className="sighting-notes">{getSightingNotes(sighting)}</p>
+            </article>
+          ))}
+        </section>
+      )}
+    </main>
+  );
+}

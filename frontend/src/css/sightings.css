@@ -1,0 +1,23 @@
+.sightings-page {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 48px 0 64px;
+}
+
+.sightings-hero {
+  margin-bottom: 32px;
+}
+
+.sightings-message {
+  padding: 18px 20px;
+  border-radius: 16px;
+  background: #f3f7f1;
+  color: #2f3d34;
+  border: 1px solid #dce8d7;
+}
+
+.sightings-error {
+  background: #fff3f0;
+  border-color: #f0c7bd;
+  color: #8b2f20;
+}
