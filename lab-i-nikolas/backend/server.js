@@ -1,11 +1,13 @@
 import express from "express";
 import dotenv from "dotenv";
 import morgan from "morgan";
+import helmet from "helmet";
 import { pool } from "./db.js";
 
 dotenv.config();
 
 const app = express();
+app.use(helmet());
 app.use(morgan("combined"));
 
 const PORT = process.env.PORT || 3000;
